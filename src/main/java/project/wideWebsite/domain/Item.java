@@ -17,4 +17,7 @@ public class Item {
 
     @Column(nullable = false)
     private int price;
+
+    @Enumerated(EnumType.STRING)
+    private ItemSellStatus itemSellStatus;
 }
