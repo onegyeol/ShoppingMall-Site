@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.expression.spel.ast.QualifiedIdentifier;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDateTime;
@@ -32,8 +33,6 @@ public class ItemRepositoryTest {
             Item savedItem = itemRepository.save(item);
             System.out.println(savedItem.toString());
         }
-
-
     }
 
     @Test
@@ -45,5 +44,18 @@ public class ItemRepositoryTest {
             System.out.println(item.toString());
         }
     }
+
+    @Test
+    @DisplayName("use @Query annotation")
+    public void findByItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList = this.itemRepository.findByItemDetail("test product detail"); //test product detail 문자열이 포함되어 있으면 추출
+        for (Item item : itemList) {
+            System.out.println(item.toString());
+
+        }
+    }
+
+
 }
 
