@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
+import project.wideWebsite.dto.MemberFormDto;
 
 //회원정보 저장하는 Member 생성
 
