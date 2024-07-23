@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/thymeleaf")
+@RequestMapping(value = "/member")
 public class ThymeleafExController {
 
-    @GetMapping("/ex06")
+    @GetMapping("/main")
     public String thymeleafExample06(){
         return "form/main";
     }
