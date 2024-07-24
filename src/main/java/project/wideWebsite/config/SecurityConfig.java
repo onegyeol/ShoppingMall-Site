@@ -15,7 +15,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(org.springframework.security.core.userdetails.User
@@ -24,5 +24,5 @@ public class SecurityConfig {
                 .roles("USER")
                 .build());
         return manager;
-    }
+    }*/
 }
