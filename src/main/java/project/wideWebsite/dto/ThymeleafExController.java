@@ -1,5 +1,6 @@
 package project.wideWebsite.dto;
 
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping(value = "/main")
 public class ThymeleafExController {
 
+    @GetMapping
     public String thymeleafExample06(){
         return "form/main";
     }

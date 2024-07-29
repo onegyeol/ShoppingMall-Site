@@ -12,21 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import project.wideWebsite.domain.Member;
 import project.wideWebsite.domain.MemberService;
 
-@RequestMapping("/members")
 @Controller
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    //회원가입 페이지 요청 시 MemberFormDto 객체 같이 넘김
     @GetMapping("/new")
     public String memberForm(Model model){
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
-    //post 요청으로 넘어온 회원가입 정보를 MemberFormDto 객체로 받음
     @PostMapping("/new")
     public String newMember(@Valid MemberFormDto memberFormDto,
                             BindingResult bindingResult, Model model){
@@ -42,7 +40,11 @@ public class MemberController {
             return "member/memberForm";
         }
 
-        return "form/main";
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "member/login";
     }
 }
-

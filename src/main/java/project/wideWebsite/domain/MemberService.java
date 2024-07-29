@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -21,24 +23,24 @@ public class MemberService implements UserDetailsService {
 
     // 이미 존재하는 회원인지 조회하기 위해
     public void validateDuplicateMember(Member member){
-        Member findMember = memberRepository.findByEmail(member.getEmail());
-        if(findMember != null){
-            throw new IllegalStateException("Member already exists");
+        Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
+        if(findMember.isPresent()){
+            throw new IllegalStateException("already exists as a member");  // 메시지 일치
         }
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(email);
+        Optional<Member> memberOptional = memberRepository.findByEmail(email);
 
-        if (member == null) {
-            throw new UsernameNotFoundException("User not found with email: " + email);
-        }
+        Member member = memberOptional.orElseThrow(() ->
+                new UsernameNotFoundException("User not found with email: " + email));
 
         return User.builder()
                 .username(member.getEmail())
                 .password(member.getPassword())
-                .roles(member.getRole().toString())
+                .roles(member.getRole().toString()) // 필요에 따라 String 배열로 변경 가능
                 .build();
     }
 }
