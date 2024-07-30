@@ -40,7 +40,7 @@ public class MemberController {
             return "member/memberForm";
         }
 
-        return "redirect:/";
+        return "form/main";
     }
 
     @GetMapping("/login")
