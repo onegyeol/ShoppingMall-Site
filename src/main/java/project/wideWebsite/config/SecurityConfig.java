@@ -20,23 +20,26 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()  // H2 콘솔에 대해만 허용
-                        .requestMatchers(new AntPathRequestMatcher("/**")).authenticated())  // 모든 요청은 인증 필요
+                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/members/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/main")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/templates/**")).permitAll()
+                        .anyRequest().authenticated())
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))  // H2 콘솔에 대해서만 CSRF 비활성화
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
                 .headers(headers -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/members/login")
-                        .defaultSuccessUrl("/"))
+                        .defaultSuccessUrl("/main"))
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/main")
                         .invalidateHttpSession(true));
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
