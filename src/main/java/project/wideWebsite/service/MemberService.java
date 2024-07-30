@@ -1,4 +1,4 @@
-package project.wideWebsite.domain;
+package project.wideWebsite.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import project.wideWebsite.domain.Member;
+import project.wideWebsite.repository.MemberRepository;
 
 import java.util.Optional;
 

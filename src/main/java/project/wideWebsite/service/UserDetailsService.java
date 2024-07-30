@@ -1,4 +1,4 @@
-package project.wideWebsite.domain;
+package project.wideWebsite.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

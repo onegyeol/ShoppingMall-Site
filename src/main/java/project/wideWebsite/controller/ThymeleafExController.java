@@ -1,4 +1,4 @@
-package project.wideWebsite.dto;
+package project.wideWebsite.controller;
 
 import lombok.Getter;
 import org.springframework.stereotype.Controller;

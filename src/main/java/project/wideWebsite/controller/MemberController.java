@@ -1,4 +1,4 @@
-package project.wideWebsite.dto;
+package project.wideWebsite.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.wideWebsite.domain.Member;
-import project.wideWebsite.domain.MemberService;
+import project.wideWebsite.dto.MemberFormDto;
+import project.wideWebsite.service.MemberService;
 
 @Controller
 @RequestMapping("/members")

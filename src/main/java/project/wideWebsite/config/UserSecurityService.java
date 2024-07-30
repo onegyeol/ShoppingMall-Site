@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.wideWebsite.domain.Member;
-import project.wideWebsite.domain.MemberRepository;
+import project.wideWebsite.repository.MemberRepository;
 import project.wideWebsite.domain.Role;
-import project.wideWebsite.domain.UserDetailsService;
+import project.wideWebsite.service.UserDetailsService;
 
 import java.util.ArrayList;
 import java.util.List;
