@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import project.wideWebsite.dto.MemberFormDto;
+import project.wideWebsite.service.MemberService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,16 +47,21 @@ public class MemberServiceTest {
 
     @Test
     @DisplayName("duplication test")
-    public void validateDuplicateMember(){
-        Member member1 = createMember();
-        Member member2 = createMember();
-        memberService.saveMember(member1);
+    public void validateDuplicateMember() {
+        // Given
+        Member member1 = createMember();  // Create the first member
+        Member member2 = createMember();  // Create the second member with the same email
 
-        Throwable e = assertThrows(IllegalStateException.class, () -> {
-            memberService.saveMember(member2);
+        // When
+        memberService.saveMember(member1);  // Save the first member
+
+        // Then
+        IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> {
+            memberService.saveMember(member2);  // Try to save the second member which should throw an exception
         });
 
-        assertEquals("already exist as a member", e.getMessage());
-
+        // Check if the exception message is correct
+        assertEquals("already exists as a member", thrown.getMessage());
     }
+
 }

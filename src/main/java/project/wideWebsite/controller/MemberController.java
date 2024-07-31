@@ -1,4 +1,4 @@
-package project.wideWebsite.dto;
+package project.wideWebsite.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,23 +10,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.wideWebsite.domain.Member;
-import project.wideWebsite.domain.MemberService;
+import project.wideWebsite.dto.MemberFormDto;
+import project.wideWebsite.service.MemberService;
 
-@RequestMapping("/members")
 @Controller
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    //회원가입 페이지 요청 시 MemberFormDto 객체 같이 넘김
     @GetMapping("/new")
     public String memberForm(Model model){
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
-    //post 요청으로 넘어온 회원가입 정보를 MemberFormDto 객체로 받음
     @PostMapping("/new")
     public String newMember(@Valid MemberFormDto memberFormDto,
                             BindingResult bindingResult, Model model){
@@ -44,5 +43,9 @@ public class MemberController {
 
         return "form/main";
     }
-}
 
+    @GetMapping("/login")
+    public String login(){
+        return "member/login";
+    }
+}

@@ -47,9 +47,11 @@
             <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
         </div>
         <div style="text-align: center">
-            <button type="submit" class="btn btn-primary" style="background-color: #003366; border-color: #003366; color: white;">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        <!-- CSRF 토큰 포함 -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
     </form>
 </div>
 </html>
