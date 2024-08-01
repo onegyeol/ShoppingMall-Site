@@ -15,18 +15,19 @@ public class Member {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
-    private Long id;
+    private Long id; //회원 고유 식별자
 
-    private String password;
-    private String name;
-    private String address;
+    private String password; //암호화된 비밀번호
+    private String name; //회원 이름
+    private String address; //회원 주소
 
     @Column(unique = true)
-    private String email;
+    private String email; //회원 이메일
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role; //회원 상태 (ADMIN, USER)
 
+    // MemberFormDto를 사용하여 Member 객체를 생성하고 비밀번호를 암호화
     public static Member createMember(MemberFormDto memberFormDto,
                                       PasswordEncoder passwordEncoder){
         Member member = new Member();
@@ -35,7 +36,7 @@ public class Member {
         member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
-        member.setRole(Role.USER);
+        member.setRole(Role.USER); //기본 역할을 USER로 설정
 
         return member;
     }

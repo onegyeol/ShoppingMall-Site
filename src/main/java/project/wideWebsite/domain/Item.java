@@ -14,23 +14,23 @@ import java.time.LocalDateTime;
 public class Item {
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
-    private Long id;
+    private Long id; //상품의 고유 식별자
 
     @Column(nullable = false, length = 50)
-    private String name;
+    private String name; //상품 이름
 
     @Column(nullable = false)
-    private int price;
+    private int price; //상품 가격
 
     @Column(nullable = false)
     private int stockNumber; //재고 수량
 
     @Lob
     @Column(nullable = false)
-    private String itemDetail;
+    private String itemDetail; //상품 상세 정보
 
     @Enumerated(EnumType.STRING)
-    private ItemSellStatus itemSellStatus;
+    private ItemSellStatus itemSellStatus; //상품 판매 상태
 
     private LocalDateTime regTime; //상품 등록 시간
 
