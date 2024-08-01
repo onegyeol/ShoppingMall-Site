@@ -10,10 +10,10 @@ import lombok.Setter;
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
-    private Long id;
+    private Long id; //주문 항목의 고유 식별자
 
-    private int count;
+    private int count; //주문 상품 수량
 
-    private int price;
+    private int price; //주문 상품의 가격
 
 }
