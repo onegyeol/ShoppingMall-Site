@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.wideWebsite.domain.Member;
 import project.wideWebsite.repository.MemberRepository;
@@ -17,20 +19,20 @@ import java.util.Optional;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Member saveMember(Member member){
+    public Member saveMember(Member member) {
         validateDuplicateMember(member);
+        member.setPassword(passwordEncoder.encode(member.getPassword())); // 비밀번호 암호화
         return memberRepository.save(member);
     }
 
-    // 이미 존재하는 회원인지 조회하기 위해
-    public void validateDuplicateMember(Member member){
+    public void validateDuplicateMember(Member member) {
         Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
-        if(findMember.isPresent()){
-            throw new IllegalStateException("already exists as a member");  // 메시지 일치
+        if (findMember.isPresent()) {
+            throw new IllegalStateException("already exists as a member");
         }
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -41,8 +43,8 @@ public class MemberService implements UserDetailsService {
 
         return User.builder()
                 .username(member.getEmail())
-                .password(member.getPassword())
-                .roles(member.getRole().toString()) // 필요에 따라 String 배열로 변경 가능
+                .password(member.getPassword()) // 암호화된 비밀번호 사용
+                .roles(member.getRole().name()) // Enum을 String으로 변환
                 .build();
     }
 }
