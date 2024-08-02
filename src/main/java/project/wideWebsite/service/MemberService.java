@@ -2,6 +2,7 @@ package project.wideWebsite.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
@@ -39,11 +40,11 @@ public class MemberService implements UserDetailsService {
     // Spring Security의 UserDetailsService 인터페이스 구현
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Member> memberOptional = memberRepository.findByEmail(email);
 
         // 이메일로 사용자를 찾지 못하면 예외 발생
-        Member member = memberOptional.orElseThrow(() ->
-                new UsernameNotFoundException("User not found with email: " + email));
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+
 
         // UserDetails 객체를 생성하여 Spring Security에 사용자 정보를 제공합니다.
         return User.builder()
