@@ -17,6 +17,7 @@ public class SecurityConfig {
     // SecurityFilterChain Bean 정의
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        
         http
                 // 요청에 대한 권한 설정
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
@@ -31,18 +32,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")) // /h2-console 경로에 대해 CSRF 보호 비활성화
                 )
-                // HTTP 헤더 설정
-                .headers(headers -> headers
-                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)) // X-Frame-Options 헤더를 SAMEORIGIN으로 설정 (H2 콘솔 사용 가능)
-                )
                 // 폼 로그인 설정
                 .formLogin(formLogin -> formLogin
                         .loginPage("/members/login") // 사용자 정의 로그인 페이지
-                        .usernameParameter("email") // 로그인 시 사용자의 이메일을 사용자명으로 사용
-                        .passwordParameter("password") // 로그인 시 사용자의 비밀번호 필드 지정
-                        .failureUrl("/members/login/error") // 로그인 실패 시 이동할 URL
+                        .failureHandler(new CustomAuthenticationFailureHandler())
                         .defaultSuccessUrl("/main", true) // 로그인 성공 시 기본적으로 이동할 URL
+                        .usernameParameter("email") // 로그인 시 사용자의 이메일을 사용자명으로 사용
+                        .failureUrl("/members/login/error") // 로그인 실패 시 이동할 URL
                 )
                 // 로그아웃 설정
                 .logout(logout -> logout
