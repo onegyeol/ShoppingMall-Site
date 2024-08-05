@@ -35,7 +35,7 @@ public class SecurityConfig {
                 // 폼 로그인 설정
                 .formLogin(formLogin -> formLogin
                         .loginPage("/members/login") // 사용자 정의 로그인 페이지
-                        .failureHandler(new CustomAuthenticationFailureHandler())
+                        .failureHandler(new CustomAuthenticationFailureHandler()) //로그인 실패시 처리하는 핸들러 설정
                         .defaultSuccessUrl("/main", true) // 로그인 성공 시 기본적으로 이동할 URL
                         .usernameParameter("email") // 로그인 시 사용자의 이메일을 사용자명으로 사용
                         .failureUrl("/members/login/error") // 로그인 실패 시 이동할 URL
