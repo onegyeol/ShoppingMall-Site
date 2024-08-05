@@ -40,9 +40,7 @@ public class MemberController {
         }
 
         try{
-            /*// Member 객체 생성 및 저장
-            Member member = Member.createMember(memberFormDto, passwordEncoder);*/
-
+            // Member 객체 생성 및 저장
             Member member = new Member();
             member.setEmail(memberFormDto.getEmail());
             member.setPassword(memberFormDto.getPassword());
