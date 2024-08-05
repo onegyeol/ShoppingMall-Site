@@ -15,4 +15,8 @@ public class Cart {
     @Column(name="CART_ID") // 데이터베이스 테이블의 열 이름을 지정합니다.
     private Long id; // 장바구니의 고유 식별자
 
+    @OneToOne // 일대일 매핑
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
 }
