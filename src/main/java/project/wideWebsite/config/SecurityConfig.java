@@ -3,6 +3,7 @@ package project.wideWebsite.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,8 +26,16 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/members/**")).permitAll() // /members 경로에 대한 접근 허용 (회원가입 및 로그인)
                         .requestMatchers(new AntPathRequestMatcher("/main")).permitAll() // /main 경로에 대한 접근 허용
                         .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll() // /css 경로에 대한 접근 허용 (스타일시트)
+                        .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll() // /js 경로에 대한 접근 허용
+                        .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll() // /img 경로에 대한 접근 허용
                         .requestMatchers(new AntPathRequestMatcher("/templates/**")).permitAll() // /templates 경로에 대한 접근 허용 (템플릿 파일)
+                        .requestMatchers(new AntPathRequestMatcher("/item/**")).permitAll() // /item 경로에 대한 접근 허용
+                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                         .anyRequest().authenticated() // 위에서 명시한 경로 외의 모든 요청은 인증된 사용자만 접근 가능
+                )
+                //권한에 맞지 않는 사용자가 리소스에 접근 시 수행되는 핸들러
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )
                 // CSRF 설정
                 .csrf(csrf -> csrf
