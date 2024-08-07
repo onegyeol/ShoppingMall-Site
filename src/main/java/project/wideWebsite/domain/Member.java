@@ -3,8 +3,13 @@ package project.wideWebsite.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import project.wideWebsite.dto.MemberFormDto;
+
+import java.util.Collection;
+import java.util.Collections;
 
 //회원정보 저장하는 Member 생성
 
@@ -13,7 +18,7 @@ import project.wideWebsite.dto.MemberFormDto;
 @Getter @Setter
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
     private Long id; //회원 고유 식별자
 
@@ -27,18 +32,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role; //회원 상태 (ADMIN, USER)
 
-    // MemberFormDto를 사용하여 Member 객체를 생성하고 비밀번호를 암호화
-    public static Member createMember(MemberFormDto memberFormDto,
-                                      PasswordEncoder passwordEncoder){
-        Member member = new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
-        String password = passwordEncoder.encode(memberFormDto.getPassword());
-        member.setPassword(password);
-        member.setRole(Role.USER); //기본 역할을 USER로 설정
-
-        return member;
+    // Spring Security의 UserDetailsService와 호환되도록 설정
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
 }

@@ -37,3 +37,16 @@ body {
 .navbar-dark .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
+
+/* 버튼 스타일 추가 */
+.btn-outline-custom {
+    color: #ffffff; /* 글자 색상 */
+    background-color: #002855; /* 남색 배경색 */
+    border-color: #ffffff; /* 테두리 색상 */
+}
+
+.btn-outline-custom:hover {
+    color: #ffffff; /* 호버 시 글자 색상 */
+    background-color: #001f40; /* 호버 시 배경 색상 */
+    border-color: #ffffff; /* 호버 시 테두리 색상 */
+}
