@@ -28,7 +28,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문 상태 (DEPART, MOVING, ARRIVE)
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true) // orderItem과 일대다 관계
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true) // orderItem과 일대다 관계, 모든 CASCADE 적용, 고아객체 제거
     private List<OrderItem> orderItems = new ArrayList<>();
 
     // 추가적인 편의 메소드
