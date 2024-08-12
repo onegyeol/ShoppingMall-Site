@@ -11,10 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import project.wideWebsite.repository.ItemRepository;
 import project.wideWebsite.repository.MemberRepository;
+import project.wideWebsite.repository.OrderItemRepository;
 import project.wideWebsite.repository.OrderRepository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,6 +33,9 @@ public class OrderTest {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
 
     public Item createItem(){
@@ -116,5 +119,33 @@ public class OrderTest {
 
         // OrderItem이 제거되어 null인지 확인
         assertEquals(null, deletedOrderItem);
+    }
+
+    @Test
+    @DisplayName("즉시 로딩 테스트")
+    public void eagerLoadingTest(){
+        Order order = this.createOrder();
+        Long orderItem_id = order.getOrderItems().get(0).getId();
+        em.flush();
+        em.clear();
+
+        OrderItem orderItem = orderItemRepository.findById(orderItem_id)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Test
+    @DisplayName("지연 로딩 테스트")
+    public void lazyLoadingTest(){
+        Order order = this.createOrder();
+        Long orderItemId = order.getOrderItems().get(0).getId();
+        em.flush();
+        em.clear();
+        OrderItem orderItem = orderItemRepository.findById(orderItemId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        System.out.println("Order class : "+  orderItem.getOrder().getClass()); //이 때는 프록시 객체 넣어둠
+        System.out.println("===========================");
+        orderItem.getOrder().getOrderDate(); //실제 메소드 수행시에 디비에 쿼리문 날아가서 조회됨
+        System.out.println("===========================");
     }
 }
