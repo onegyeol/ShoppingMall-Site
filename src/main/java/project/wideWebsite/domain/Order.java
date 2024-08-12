@@ -18,7 +18,7 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id; // 주문 고유 식별자
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
