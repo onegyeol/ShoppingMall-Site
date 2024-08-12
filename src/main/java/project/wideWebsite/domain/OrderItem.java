@@ -14,11 +14,11 @@ public class OrderItem {
     @Column(name = "ORDER_ITEM_ID")
     private Long id; // 주문 항목의 고유 식별자
 
-    @ManyToOne //item과 다대일 관계
+    @ManyToOne(fetch = FetchType.LAZY) //item과 다대일 관계
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
-    @ManyToOne //order과 다대일 관계 (양방향매핑)
+    @ManyToOne(fetch = FetchType.LAZY) //order과 다대일 관계 (양방향매핑)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
