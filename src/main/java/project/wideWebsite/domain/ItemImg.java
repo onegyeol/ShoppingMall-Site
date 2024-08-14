@@ -3,12 +3,10 @@ package project.wideWebsite.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.boot.jaxb.mapping.marshall.InheritanceTypeMarshalling;
-
 @Entity
 @Table(name = "ITEM_IMG")
 @Getter @Setter
-public class ItemImg {
+public class ItemImg extends BaseEntity {
     @Id
     @Column(name = "ITEM_IMG_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
