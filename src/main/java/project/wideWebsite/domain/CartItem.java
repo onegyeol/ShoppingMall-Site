@@ -12,11 +12,11 @@ public class CartItem {
     @Column(name = "CART_ITEM_ID")
     private Long id; // 장바구니 아이템의 고유 식별자
 
-    @ManyToOne //하나의 장바구니 안에 여러 아이템 존재
+    @ManyToOne(fetch = FetchType.LAZY) //하나의 장바구니 안에 여러 아이템 존재
     @JoinColumn(name = "CART_ID")
     private Cart cart;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 

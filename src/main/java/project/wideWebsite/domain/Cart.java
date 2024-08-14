@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity // JPA 엔티티 클래스임을 나타냅니다.
 @Table(name = "CART") // 데이터베이스에서 매핑될 테이블의 이름을 지정합니다.
 @Getter // Lombok 어노테이션으로 모든 필드에 대한 getter 메서드를 자동으로 생성합니다.
@@ -18,5 +21,6 @@ public class Cart {
     @OneToOne // 일대일 매핑
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
 
 }

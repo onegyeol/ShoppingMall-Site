@@ -3,6 +3,7 @@ package project.wideWebsite.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,8 @@ import java.util.Collections;
 @Entity
 @Table(name = "MEMBER")
 @Getter @Setter
-public class Member {
+@ToString
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
