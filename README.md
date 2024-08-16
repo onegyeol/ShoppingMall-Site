@@ -25,6 +25,9 @@
 ### 📚 구현 기능
 
 ### 📁 DB 모델링
+![image](https://github.com/user-attachments/assets/507b3eec-6180-4e34-acc9-898e957e8db9)
+
+
 
 ### 🗒️ API 명세서
 
