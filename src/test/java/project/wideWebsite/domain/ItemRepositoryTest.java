@@ -22,7 +22,7 @@ public class ItemRepositoryTest {
     public void createItemList(){
         for(int i=1; i<=10; i++){
             Item item = new Item();
-            item.setName("test product" + i);
+            item.setItemNm("test product" + i);
             item.setPrice(10000 + i);
             item.setItemDetail("test product detail" + i);
             item.setItemSellStatus(ItemSellStatus.SELL);
@@ -39,14 +39,14 @@ public class ItemRepositoryTest {
     @DisplayName("find product name")
     public void findByItemNmTest(){
         this.createItemList();
-        List<Item> itemList = itemRepository.findByName("test product1");
+        List<Item> itemList = itemRepository.findByItemNm("test product1");
         for (Item item : itemList){
             System.out.println(item.toString());
         }
     }
 
     @Test
-    @DisplayName("use @Query annotation")
+    @DisplayName("use Query annotation")
     public void findByItemDetailTest(){
         this.createItemList();
         List<Item> itemList = this.itemRepository.findByItemDetail("test product detail"); //test product detail 문자열이 포함되어 있으면 추출
