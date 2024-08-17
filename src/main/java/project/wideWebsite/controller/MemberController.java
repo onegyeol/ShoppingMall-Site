@@ -46,7 +46,7 @@ public class MemberController {
             member.setPassword(memberFormDto.getPassword());
             member.setName(memberFormDto.getName());
             member.setAddress(memberFormDto.getAddress());
-            member.setRole(Role.USER);
+            member.setRole(Role.ADMIN);
 
             memberService.saveMember(member); // 회원 정보 저장
         }catch(IllegalStateException e){
@@ -69,5 +69,10 @@ public class MemberController {
     public String loginError(Model model){
         model.addAttribute("LoginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
         return "member/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "form/main";
     }
 }
