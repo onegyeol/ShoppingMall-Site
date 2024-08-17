@@ -20,7 +20,7 @@ public class Item {
     private Long id; //상품의 고유 식별자
 
     @Column(nullable = false, length = 50)
-    private String name; //상품 이름
+    private String itemNm; //상품 이름
 
     @Column(nullable = false)
     private int price; //상품 가격
