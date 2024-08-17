@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.support.ManagedArray;
+import project.wideWebsite.dto.ItemFormDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,4 +39,12 @@ public class Item {
     private LocalDateTime regTime; //상품 등록 시간
 
     private LocalDateTime updateTime; //상품 수정 시간
+
+    public void updateItem(ItemFormDto itemFormDto){
+        this.itemNm = itemFormDto.getItemNm();
+        this.price = itemFormDto.getPrice();
+        this.stockNumber = itemFormDto.getStockNumber();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
+    }
 }
