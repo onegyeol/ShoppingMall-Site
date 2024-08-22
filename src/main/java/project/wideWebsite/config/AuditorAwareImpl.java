@@ -12,9 +12,11 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         // 현재 인증 정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = "";
 
-        // 인증 정보가 있을 경우 사용자의 이름을 반환하고, 없을 경우 빈 문자열을 반환
-        String userId = (authentication != null && authentication.isAuthenticated()) ? authentication.getName() : "anonymous"; // 또는 적절한 기본 값
+        if(authentication != null && authentication.isAuthenticated()){
+            userId = authentication.getName();  // getName() 메서드 결과를 userId에 할당
+        }
 
         return Optional.of(userId);
     }
