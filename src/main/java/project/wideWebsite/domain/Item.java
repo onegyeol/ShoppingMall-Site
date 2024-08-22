@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "ITEM")
 @Getter @Setter
 @ToString
-public class Item {
+public class Item extends BaseEntity{
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id; //상품의 고유 식별자
@@ -35,10 +35,6 @@ public class Item {
 
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus; //상품 판매 상태
-
-    private LocalDateTime regTime; //상품 등록 시간
-
-    private LocalDateTime updateTime; //상품 수정 시간
 
     public void updateItem(ItemFormDto itemFormDto){
         this.itemNm = itemFormDto.getItemNm();
