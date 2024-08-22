@@ -60,7 +60,7 @@ private BooleanExpression searchByLike(String searchBy, String searchQuery){
         // queryfactory 이용해 querydsl 쿼리문 생성
         QueryResults<Item> results = queryFactory
                 .selectFrom(QItem.item)
-                .where(regDtsAfter(itemSearchDto.getSearchDataType()),
+                .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                         searchSellStatus(itemSearchDto.getSearchSellStatus()),
                         searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
                 .orderBy(QItem.item.id.desc())
