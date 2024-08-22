@@ -12,6 +12,7 @@ import project.wideWebsite.domain.ItemImg;
 import project.wideWebsite.dto.ItemFormDto;
 import project.wideWebsite.dto.ItemImgDto;
 import project.wideWebsite.dto.ItemSearchDto;
+import project.wideWebsite.dto.MainItemDto;
 import project.wideWebsite.repository.ItemImgRepository;
 import project.wideWebsite.repository.ItemRepository;
 
@@ -77,6 +78,11 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception{
