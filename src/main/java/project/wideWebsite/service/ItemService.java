@@ -1,6 +1,8 @@
 package project.wideWebsite.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import project.wideWebsite.domain.Item;
 import project.wideWebsite.domain.ItemImg;
 import project.wideWebsite.dto.ItemFormDto;
 import project.wideWebsite.dto.ItemImgDto;
+import project.wideWebsite.dto.ItemSearchDto;
 import project.wideWebsite.repository.ItemImgRepository;
 import project.wideWebsite.repository.ItemRepository;
 
@@ -68,6 +71,12 @@ public class ItemService {
         itemFormDto.setItemImgDtoList(itemImgDtoList);
 
         return itemFormDto;
+    }
+
+    // 위에서 만든 사용자 정의 조회문 수행하는 로직 추가
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception{
