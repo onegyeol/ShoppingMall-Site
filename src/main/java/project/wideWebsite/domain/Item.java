@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.support.ManagedArray;
 import project.wideWebsite.dto.ItemFormDto;
+import project.wideWebsite.exception.OutOfStockException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,5 +43,13 @@ public class Item extends BaseEntity{
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
+    }
+
+    public void removeStock(int stockNumber){
+        int restStock = this.stockNumber - stockNumber;
+        if(restStock < 0){
+            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량: " + this.stockNumber + ")");
+        }
+        this.stockNumber = restStock;
     }
 }
