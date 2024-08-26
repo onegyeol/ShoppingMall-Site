@@ -67,4 +67,12 @@ public class Order {
 
         return totalPrice;
     }
+
+    public void cancelOrder(){
+        this.status = OrderStatus.CANCEL; // 주문 취소 시 상태 변경
+
+        for(OrderItem orderItem : orderItems){
+            orderItem.cancel(); //OrderItem.cancel() 호출
+        }
+    }
 }
