@@ -39,4 +39,9 @@ public class OrderItem {
     public int getTotalPrice(){
         return price * count;
     }
+
+    // 상품 주문 취소 시 Item.addStock() 호출
+    public void cancel(){
+        this.getItem().addStock(count);
+    }
 }
