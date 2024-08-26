@@ -3,6 +3,7 @@ package project.wideWebsite.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.antlr.v4.runtime.atn.SemanticContext;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,5 +41,30 @@ public class Order {
     public void removeOrderItem(OrderItem orderItem) { //주문 항목 제거
         orderItems.remove(orderItem);
         orderItem.setOrder(null);
+    }
+
+    public static Order createOrder(Member member, List<OrderItem> orderItemList){
+        Order order = new Order();
+        order.setMember(member);
+
+        for(OrderItem orderItem : orderItemList){
+            order.addOrderItem(orderItem);
+        }
+
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+
+        return order;
+    }
+
+    public int getTotalPrice(){
+        int totalPrice = 0;
+
+        // 각 상품마다 TotalPrice를 구하고 모두 더함
+        for(OrderItem orderItem : orderItems){
+            totalPrice += orderItem.getTotalPrice();
+        }
+
+        return totalPrice;
     }
 }
