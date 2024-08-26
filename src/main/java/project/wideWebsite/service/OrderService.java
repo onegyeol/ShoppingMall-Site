@@ -2,11 +2,13 @@ package project.wideWebsite.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import project.wideWebsite.domain.*;
 import project.wideWebsite.dto.OrderDto;
 import project.wideWebsite.dto.OrderHistDto;
@@ -69,5 +71,26 @@ public class OrderService {
         }
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
 
+    }
+
+    // 주문을 취소한 고객과 주문한 고객이 동일한지 검사
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String email){
+        // 주문 취소 고객
+        Member curMember = memberRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+
+        // 상품 주문 고객
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Member savedMember = order.getMember();
+
+        if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) return false;
+
+        return true;
+
+    }
+
+    public void cancelOrder(Long orderId){
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();
     }
 }
