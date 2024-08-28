@@ -1,7 +1,6 @@
 package project.wideWebsite.domain;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,4 +77,25 @@ public class OrderServiceTest {
         assertEquals(totalPrice, order.getTotalPrice());
     }
 
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder(){
+        Item item = saveItem();
+        Member member = saveMember();
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCount(10);
+        orderDto.setItemId(item.getId());
+
+        // 주문 객체 저장
+        Long orderId = orderService.order(orderDto, member.getEmail());
+
+        // 주문된 객체 조회 뒤 주문 취소
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        orderService.cancelOrder(orderId);
+
+        // 주문 상태가 CANCEL이고 처음 수량과 동일하다면 통과
+        assertEquals(OrderStatus.CANCEL, order.getStatus());
+        assertEquals(100, item.getStockNumber());
+    }
 }
