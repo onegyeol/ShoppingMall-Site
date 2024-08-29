@@ -55,7 +55,7 @@ public class ItemController {
             return "item/itemForm";
         }
 
-        return "form/main";
+        return "redirect:/main";
     }
 
     @GetMapping("/admin/item/{itemId}")
