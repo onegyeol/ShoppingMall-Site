@@ -23,13 +23,22 @@
 ![mysql](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 
 ### 📚 구현 기능
+#### 회원
+회원가입 및 로그인, 로그아웃
+
+#### 상품
+상품 등록/관리/수정 (ADMIN만 가능)
+상품 조회/상세페이지
+
+#### 주문
+상품 주문, 주문 내역 조회, 주문 취소
+
+#### 장바구니
+장바구니 담기/조회/삭제/상품 주문
 
 ### 📁 DB 모델링
 ![image](https://github.com/user-attachments/assets/507b3eec-6180-4e34-acc9-898e957e8db9)
 
-
-
 ### 🗒️ API 명세서
-
-
+![image](https://github.com/user-attachments/assets/7c760d17-f81f-4259-8ff1-a8d298f59b5a)
 
