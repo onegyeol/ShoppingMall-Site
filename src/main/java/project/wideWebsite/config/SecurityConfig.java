@@ -3,12 +3,10 @@ package project.wideWebsite.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -31,7 +29,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll() // /images 경로에 대한 접근 허용
                         .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll() // /img 경로에 대한 접근 허용
                         .requestMatchers(new AntPathRequestMatcher("/templates/**")).permitAll() // /templates 경로에 대한 접근 허용 (템플릿 파일)
-                        .requestMatchers(new AntPathRequestMatcher("/item/**")).permitAll() // /item 경로에 대한 접근
+                        .requestMatchers(new AntPathRequestMatcher("/static/item/**")).permitAll() // /item 경로에 대한 접근
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                         .anyRequest().authenticated() // 위에서 명시한 경로 외의 모든 요청은 인증된 사용자만 접근 가능
                 )
