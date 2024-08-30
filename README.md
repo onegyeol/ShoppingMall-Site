@@ -42,3 +42,12 @@
 ### 🗒️ API 명세서
 ![image](https://github.com/user-attachments/assets/7c760d17-f81f-4259-8ff1-a8d298f59b5a)
 
+### 📸 시연 영상
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6fff03f3-8d32-4160-aa1d-03d61fb58752">
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/06cbbbf5-a71a-4847-a48e-327542dc1013">
+</p>
+
+
