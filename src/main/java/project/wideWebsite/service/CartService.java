@@ -11,6 +11,8 @@ import project.wideWebsite.domain.Item;
 import project.wideWebsite.domain.Member;
 import project.wideWebsite.dto.CartDetailDto;
 import project.wideWebsite.dto.CartItemDto;
+import project.wideWebsite.dto.CartOrderDto;
+import project.wideWebsite.dto.OrderDto;
 import project.wideWebsite.repository.CartItemRepository;
 import project.wideWebsite.repository.CartRepository;
 import project.wideWebsite.repository.ItemRepository;
@@ -28,6 +30,7 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
+    private final OrderService orderService;
 
     public Long addCart(CartItemDto cartItemDto, String email){
 
@@ -95,5 +98,30 @@ public class CartService {
     public void deleteCartItem(Long cartItemId){
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
         cartItemRepository.delete(cartItem);
+    }
+
+    // OrderDtoList 생성 + OrderService.orders() 호출
+    public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, String email){
+        List<OrderDto> orderDtoList = new ArrayList<>();
+
+        // CartOrderDto 객체를 이용해 cartItem 객체 조회
+        // cartItem.itemId, cartItem.count 이용해 OrderDto 객체 생성
+        for(CartOrderDto cartOrderDto : cartOrderDtoList){
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            OrderDto orderDto = new OrderDto();
+            orderDto.setItemId(cartItem.getItem().getId());
+            orderDto.setCount(cartItem.getCount());
+            orderDtoList.add(orderDto);
+        }
+
+        Long orderId = orderService.orders(orderDtoList, email);
+
+        // 주문한 상품 제거
+        for(CartOrderDto cartOrderDto : cartOrderDtoList){
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            cartItemRepository.delete(cartItem);
+        }
+
+        return orderId;
     }
 }
