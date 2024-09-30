@@ -9,7 +9,7 @@
 - SpringBoot Version : 3.3.1
 - Database : MySQL
 - Build Tool : Gradle
-- 개발 기간 : 2024.7.17 ~
+- 개발 기간 : 2024.7.17 ~ 2024.08.30
 
 ### 🛠️ 기술 스택
 ![HTML](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
